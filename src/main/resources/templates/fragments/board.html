@@ -1,0 +1,11 @@
+<div th:fragment="boardFrag" id="board" xmlns:th="http://www.w3.org/1999/xhtml" style="margin-top:2%">
+
+    <th:block th:if="${game!=null}">
+        <input type="hidden" id="gameId" th:value="${game.id}">
+        <input type="hidden" id="gameStatus" th:value="${game.status.name}">
+    </th:block>
+
+    <div style=" height: 90vh;width: 90vw;margin:2% auto">
+
+    </div>
+</div>
