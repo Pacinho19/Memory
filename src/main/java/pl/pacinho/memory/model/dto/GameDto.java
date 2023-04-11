@@ -17,4 +17,6 @@ public class GameDto {
     private GameStatus status;
     private List<String> players;
     private LocalDateTime startTime;
+    private List<CellDto> cells;
+
 }

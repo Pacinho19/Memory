@@ -2,10 +2,13 @@ package pl.pacinho.memory.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.pacinho.memory.model.dto.CellDto;
 import pl.pacinho.memory.model.enums.GameStatus;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,6 +19,8 @@ public class Game {
     private GameStatus status;
     private LinkedList<Player> players;
     private LocalDateTime startTime;
+    @Setter
+    private List<CellDto> cells;
 
 
     public Game(String player1) {
@@ -24,6 +29,11 @@ public class Game {
         this.id = UUID.randomUUID().toString();
         this.status = GameStatus.NEW;
         this.startTime = LocalDateTime.now();
+        this.cells = new ArrayList<>();
+    }
+
+    public void addCell(CellDto cell) {
+        this.cells.add(cell);
     }
 
 }

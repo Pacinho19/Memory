@@ -7,5 +7,19 @@
 
     <div style=" height: 90vh;width: 90vw;margin:2% auto">
 
+        <div class="row" th:each="i : ${#numbers.sequence(0,3)}"
+             style="width:90%;margin:2% auto;display: flex;justify-content: center;align-items: center;">
+            <div th:each="j : ${#numbers.sequence(0,4)}" th:with="cellDto=${game.cells.get((i*5)+j)}" style=";margin-left:2%">
+                 <span
+                         th:id="${'cell_'+((i*5)+j)}"
+                         style="font-size:5rem;display: inline-block"
+                         th:class="${cellDto.visible ? 'badge badge-light' : 'badge badge-warning'}">
+
+                     <i th:if="${cellDto.visible}" th:class="${cellDto.cell.iconClass}"></i>
+                     <i th:if="${!cellDto.visible}" class="bi bi-balloon"></i>
+
+                 </span>
+            </div>
+        </div>
     </div>
 </div>
