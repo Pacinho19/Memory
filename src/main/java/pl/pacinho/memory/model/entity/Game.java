@@ -21,7 +21,11 @@ public class Game {
     private LocalDateTime startTime;
     @Setter
     private List<CellDto> cells;
-
+    private int actualPlayer;
+    private int round;
+    private List<Integer> answerIndexes;
+    @Setter
+    private String result;
 
     public Game(String player1) {
         players = new LinkedList<>();
@@ -30,10 +34,33 @@ public class Game {
         this.status = GameStatus.NEW;
         this.startTime = LocalDateTime.now();
         this.cells = new ArrayList<>();
+        this.actualPlayer = 1;
+        this.round = 1;
+        this.answerIndexes = new ArrayList<>();
     }
 
     public void addCell(CellDto cell) {
         this.cells.add(cell);
     }
 
+    public void nextPlayer() {
+        this.answerIndexes.clear();
+
+        if (actualPlayer == players.size())
+            actualPlayer = 1;
+        else
+            actualPlayer++;
+    }
+
+    public void nextRound() {
+        this.round++;
+    }
+
+    public void addAnswerIndex(int index) {
+        this.answerIndexes.add(index);
+    }
+
+    public void incrementPlayersRound() {
+        players.forEach(Player::nextRound);
+    }
 }

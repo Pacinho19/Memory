@@ -1,0 +1,20 @@
+<div th:fragment="playerInfoFrag(playerInfo)">
+
+    <div class="row"
+         style="width:90%;margin:2% auto;display: flex;justify-content: center;align-items: center;">
+            <h2 th:style="${'display: inline-block;' +  (playerInfo.idx==game.actualPlayer ? 'color:green' : '')}" th:text="${playerInfo.name}"></h2>
+            <i style="font-size:3rem;display: inline-block;margin-left:1%;color:green" class="bi bi-play-fill" th:if="${playerInfo.idx==game.actualPlayer}"></i>
+    </div>
+
+    <div class="row"
+         style="width:90%;margin:2% auto;display: flex;justify-content: center;align-items: center;">
+
+        <div th:each="cell : ${playerInfo.cells}" style=";margin-left:2%">
+          <span style="font-size:2rem;display: inline-block" class="badge badge-info">
+              <i th:class="${cell.iconClass}"></i>
+          </span>
+        </div>
+
+    </div>
+
+</div>

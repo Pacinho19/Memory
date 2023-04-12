@@ -5,21 +5,37 @@
         <input type="hidden" id="gameStatus" th:value="${game.status.name}">
     </th:block>
 
-    <div style=" height: 90vh;width: 90vw;margin:2% auto">
+    <div class="row">
+        <div class="col-md-3">
+            <div th:replace="fragments/player-info :: playerInfoFrag(playerInfo=${game.players.get(0)})"/>
+        </div>
+        <div class="col-md-6">
+            <div style=" height: 90vh;margin:2% auto">
 
-        <div class="row" th:each="i : ${#numbers.sequence(0,3)}"
-             style="width:90%;margin:2% auto;display: flex;justify-content: center;align-items: center;">
-            <div th:each="j : ${#numbers.sequence(0,4)}" th:with="cellDto=${game.cells.get((i*5)+j)}" style=";margin-left:2%">
+                <div class="row" th:each="i : ${#numbers.sequence(0,3)}"
+                     style="width:90%;margin:2% auto;display: flex;justify-content: center;align-items: center;">
+                    <div th:each="j : ${#numbers.sequence(0,4)}" th:with="cellDto=${game.cells.get((i*5)+j)}"
+                         style=";margin-left:2%">
                  <span
-                         th:id="${'cell_'+((i*5)+j)}"
-                         style="font-size:5rem;display: inline-block"
-                         th:class="${cellDto.visible ? 'badge badge-light' : 'badge badge-warning'}">
+                         th:id="${cellDto.visible ? 'visibleCell' : 'cell_'+((i*5)+j)}"
+                         th:style="${'font-size:4.5rem;display: inline-block' + ( #lists.contains(game.answerIndexes, (i*5)+j) ? ';border:thick solid #0000FF' : ';border:thick solid black')}"
+                         th:class="${cellDto.visible ? 'badge badge-info' : 'badge badge-warning'}">
 
                      <i th:if="${cellDto.visible}" th:class="${cellDto.cell.iconClass}"></i>
-                     <i th:if="${!cellDto.visible}" class="bi bi-balloon"></i>
+                     <i th:if="${!cellDto.visible && game.canPlay}" class="bi bi-balloon"
+                        th:onclick="|selectCell('${((i*5)+j)}')|"></i>
+                     <i th:if="${!cellDto.visible && !game.canPlay}" class="bi bi-balloon"></i>
 
                  </span>
+                    </div>
+                </div>
+
+                <h1 style="text-align:center;color:red;margin-top:1%" th:if="${game.status.name=='FINISHED' && game.resultMessage!=null}" th:text="${game.resultMessage}"></h1>
             </div>
         </div>
+        <div class="col-md-3">
+            <div th:replace="fragments/player-info :: playerInfoFrag(playerInfo=${game.players.get(1)})"/>
+        </div>
     </div>
+
 </div>

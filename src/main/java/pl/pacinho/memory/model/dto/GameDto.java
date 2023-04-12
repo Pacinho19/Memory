@@ -15,8 +15,12 @@ public class GameDto {
 
     private String id;
     private GameStatus status;
-    private List<String> players;
+    private List<PlayerInfoDto> players;
     private LocalDateTime startTime;
     private List<CellDto> cells;
+    private boolean canPlay;
+    private int actualPlayer;
+    private List<Integer> answerIndexes;
+    private String resultMessage;
 
 }

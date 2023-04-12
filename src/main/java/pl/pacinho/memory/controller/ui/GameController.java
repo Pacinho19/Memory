@@ -99,9 +99,10 @@ public class GameController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(UIConfig.GAME_ANSWER)
-    public void answer(@RequestBody AnswerRequestDto answerRequestDto,
+    public void answer(Authentication authentication,
+                       @RequestBody AnswerRequestDto answerRequestDto,
                        @PathVariable(value = "gameId") String gameId) {
-        gameService.answer(gameId, answerRequestDto);
+        gameService.answer(gameId, answerRequestDto, authentication.getName());
     }
 
 }

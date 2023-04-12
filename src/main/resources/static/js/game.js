@@ -32,7 +32,16 @@ function sendAnswer(cellIdx) {
      xhr.onreadystatechange = function () { };
 
      const answerRequest = new Object();
-     answerRequest.cellIdx = cellIdx;
+     answerRequest.idx = cellIdx.replace('cell_', '');
      var data = JSON.stringify(answerRequest);
      xhr.send(data);
+}
+
+function selectCell(id){
+    if(id==null || id.length==0)
+        return;
+
+    id = 'cell_'+id;
+    cell = document.getElementById(id);
+    sendAnswer(id);
 }
